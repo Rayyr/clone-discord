@@ -1,0 +1,23 @@
+const express=require('express');
+const router=express.Router();
+const {login,register}=require("../controllers/authController.js");
+const joi=require("joi");
+const validation=require("express-joi-validation").createValidator({});
+
+const registerSchema=joi.object({
+    username:joi.string().min(3).max(12).required(),
+    password:joi.string().min(6).max(12).required(),
+    mail:joi.string().email().required()
+});
+
+const loginSchema=joi.object({
+     password:joi.string().min(6).max(12).required(),
+    mail:joi.string().email().required()
+});
+
+//routes
+router.post("/register",validation.body(registerSchema),register)
+
+router.post("/login",validation.body(loginSchema),login )
+
+module.exports=router;
