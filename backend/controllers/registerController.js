@@ -5,7 +5,7 @@ const register=async(req,res)=>{
     try{
 
         const {username,mail,password}=req.body;
-        const userExists=await User.exists({mail});
+        const userExists=await User.exists({mail:mail.toLowerCase()});
   if(userExists){
     return res.status(409).send("Email is already exists");
   }
