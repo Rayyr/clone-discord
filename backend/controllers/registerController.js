@@ -1,5 +1,6 @@
 const User=require("../models/users.js");
 const bcrypt=require("bcrypt");
+const jwt=require('jsonwebtoken');
 
 const register=async(req,res)=>{
     try{
@@ -13,10 +14,21 @@ const register=async(req,res)=>{
     const user=await User.create({
         username,mail,password:ecncryptPassword
     })
-  res.status(201).json({
+ 
+    const token=jwt.sign({
+      userId:user.__id,
+      mail
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn:'7d'
+    }
+  )
+    res.status(200).json({
     userDetails:{
         mail:user.mail,
-        username:user.username
+        username:user.username,
+        token:token
     }
   })
     }catch(error){
