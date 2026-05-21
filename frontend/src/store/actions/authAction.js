@@ -1,4 +1,5 @@
 import * as api from "../../api.js";
+import {openAlertMessage} from './alertAction.js';
 
 export const authAction={
     SET_USER_DETAILS:"AUTH.SET_USER_DETAILS"
@@ -19,6 +20,7 @@ export const login=(userDetails,Navigate)=>{
         const response=await api.login(userDetails)
      if(response.error){
         //show error
+        dispatch(openAlertMessage(response?.error?.response?.data));
      }
      else{
         const {userDetails}=response.data;
@@ -45,6 +47,7 @@ export const register=(userDetails,Navigate)=>{
         const response=await api.register(userDetails)
      if(response.error){
         //show error
+                dispatch(openAlertMessage(response?.error?.response?.data));
      }
      else{
         const {userDetails}=response.data;

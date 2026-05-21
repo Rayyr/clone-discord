@@ -1,10 +1,25 @@
 import axios from 'axios';
+import logout from './utils/auth.js';
 
 const apiClient=axios.create({
     baseURL:"http://localhost:5000/api",
     timeout:1000,
 
 })
+
+apiClient.interceptors.request.use((config)=>{
+const userDetails=localStorage.getItem("user");
+if(userDetails){
+    const token=JSON.parse(userDetails).token;
+    config.headers.Authorization=`Bearer ${token}`;
+}
+return config;
+
+},(error)=>{
+    return Promise.reject(error);
+}
+)
+
 
 export const login=async(data)=>{
     try{
@@ -28,5 +43,14 @@ return {
     error:true,
     error
 }
+    }
+}
+
+
+const checkResponseCode=(error)=>{
+
+    const responseCode=error?.response?.status;
+    if(responseCode){
+        (responseCode===401  || responseCode===403)&&logout();
     }
 }
