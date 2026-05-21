@@ -1,8 +1,10 @@
  import React from 'react';
-  
+    import AuthBox from '../../../components/AuthBox.jsx';
+
+
 const RegisterPage=()=> {
   return (
-    <div> RegisterPage</div> 
+    <AuthBox> RegisterPage</AuthBox> 
   );
 }
 
