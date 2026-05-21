@@ -4,7 +4,7 @@ import RedirectInfo from '../../../components/RedirectInfo';
 import {useNavigate} from 'react-router-dom';
 import {Tooltip} from "@mui/material";
 
-  function RegisterFooter({handleLogin,isFormated}) {
+  function LoginFooter({handleLogin,isFormated}) {
  const Navigate=useNavigate();
 
     const handlePushToLoginPage=()=>{
@@ -45,4 +45,4 @@ Navigate('/login');
   );
 }
 
-export default RegisterFooter;
+export default LoginFooter;

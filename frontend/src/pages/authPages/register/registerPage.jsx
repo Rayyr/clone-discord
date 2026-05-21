@@ -4,7 +4,17 @@ import LoginHeader from './RegisterHeader.jsx';
 import LoginInputs from './RegisterInputs.jsx';
 import LoginFooter from './RegisterFooter.jsx';
 import { validateRegisterForm } from '../../../utils/validates.js';
+import {useDispatch} from 'react-redux';
+import {register} from "../../../store/actions/authAction.js";
+import {useNavigate} from 'react-router-dom';
+
+
+
 const LoginPage=()=> {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+
+
  const [mail,setMail]=useState('');
    const [password,setPassword]=useState('');
       const [username,setUsername]=useState('');
@@ -14,14 +24,21 @@ const LoginPage=()=> {
    useEffect(()=>{
 
   setIsFormated(validateRegisterForm({mail,password,username}))
-},[mail,password,setIsFormated])
+},[mail,password,username,setIsFormated])
 
 
- const handleLogin=()=>{
-  console.log(mail);
-   console.log(password);
-   console.log(username);
+ const handleLogin=async ()=>{
+  
+if(isFormated){
+  const userDetails={
+    mail,password,username
+  }
+  try{
+await dispatch(register(userDetails,navigate));
+  }catch(error){
 
+  }
+}
  }
   return (
     <AuthBox>

@@ -1,3 +1,5 @@
+import {authAction} from "./../actions/authAction.js";
+
 const initState={
     userDetails:null,
 };
@@ -5,9 +7,10 @@ const initState={
 
 const reducer=(state=initState,action)=>{
     switch(action.type){
-        case "DUMMY":
+        case authAction.SET_USER_DETAILS:
             return {
-                ...state
+                ...state,
+                userDetails:action.userDetails
             };
             default:
                 return state

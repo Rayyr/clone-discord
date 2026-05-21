@@ -4,8 +4,18 @@ import LoginHeader from './LoginHeader.jsx';
 import LoginInputs from './LoginInputs.jsx';
 import LoginFooter from './LoginFooter.jsx';
 import { validateLoginForm } from '../../../utils/validates.js';
+import {useDispatch} from 'react-redux';
+import {login} from "../../../store/actions/authAction.js";
+import {useNavigate} from 'react-router-dom';
+ 
+
+
 const LoginPage=()=> {
- const [mail,setMail]=useState('');
+   const dispatch=useDispatch();
+   const navigate=useNavigate();
+ 
+
+  const [mail,setMail]=useState('');
    const [password,setPassword]=useState('');
    const [isFormated,setIsFormated]=useState(false);
 
@@ -15,11 +25,19 @@ const LoginPage=()=> {
 },[mail,password,setIsFormated])
 
 
- const handleLogin=()=>{
-  console.log(mail);
-   console.log(password);
+ const handleLogin=async()=>{
+  
+if(isFormated){
+  const userDetails={
+    mail,password
+  }
+  try{
+await dispatch(login(userDetails,navigate));
+  }catch(error){
 
+  }
  }
+}
   return (
     <AuthBox>
       <LoginHeader/>
