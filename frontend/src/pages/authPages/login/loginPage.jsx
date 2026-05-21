@@ -16,7 +16,9 @@ const LoginPage=()=> {
 
 
  const handleLogin=()=>{
-  console.log("hi");
+  console.log(mail);
+   console.log(password);
+
  }
   return (
     <AuthBox>
