@@ -4,7 +4,7 @@ import React from 'react';
 import LoginPage from "./pages/authPages/login/loginPage.jsx";
 import RegisterPage from "./pages/authPages/register/registerPage.jsx";
 import Dashboard from "./pages/authPages/dashboard/Dashboard.jsx";
-
+import AlertNotification from './components/AlertNotification.jsx';
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
       
  
     </Routes>
+        <AlertNotification/>
+
     </Router>
   );
 }
