@@ -1,14 +1,14 @@
 import React,{useState,useEffect} from "react";
  
- import { validateEmail } from "../../../../utils/validates";
+ import { validateEmail } from "../../../utils/validates";
 import Dialog from '@mui/material/Dialog';
 import DialogActions  from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Typography from "@mui/material/Typography";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputWithLabel from "../../../../components/InputWithLabel";
-import CustomPrimaryButton from "../../../../components/CustomPrimaryButton";
+import InputWithLabel from "../../../components/InputWithLabel";
+import CustomPrimaryButton from "../../../components/CustomPrimaryButton";
 
 
 const AddFriendDialog=({isDialogOpen,closeDialogHandler,

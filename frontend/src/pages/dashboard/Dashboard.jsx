@@ -4,9 +4,10 @@ import SideBar from './SideBar/SideBar.jsx';
 import FriendsSideBar from './FriendSideBar/FriendsSideBar.jsx';
 import AppBar from './AppBar/AppBar.jsx';
 import Messanger from './Messanger/Messanger.jsx';
-import logout from '../../../utils/auth.js';
+import logout from '../../utils/auth.js';
 import {useDispatch} from "react-redux";
-import { setUserDetails   } from '../../../store/actions/authAction.js';
+import { setUserDetails   } from '../../store/actions/authAction.js';
+import { connectionSocketServer } from '../realTimeConnection.jsx/SocketConnection.jsx';
   const Wrapper=styled('div')({
 width:'100%',
 height:"100vh",
@@ -20,6 +21,7 @@ if(!userDetails){
   logout();
 } else{
   dispatch(setUserDetails(userDetails));
+connectionSocketServer();
 }
 },[])
  

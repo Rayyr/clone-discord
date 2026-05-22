@@ -3,7 +3,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { IconButton } from '@mui/material';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import logout from "../../../../utils/auth.js";
+import logout from "../../../utils/auth.js";
 
 
 

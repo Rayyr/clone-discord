@@ -1,8 +1,8 @@
 const registerSocketServer=(server)=>{
-    const op=require("socket.io")(server,{
+    const io=require("socket.io")(server,{
         cors:{
             origin:"*",
-            methods:["Get","Post"]
+            methods:["GET","POST"]
         }
     });
     io.on("connection",(socket)=>{

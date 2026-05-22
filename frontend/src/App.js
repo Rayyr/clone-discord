@@ -3,7 +3,7 @@ import React from 'react';
   import {BrowserRouter as Router,Routes,Route,Navigate} from 'react-router-dom';
 import LoginPage from "./pages/authPages/login/loginPage.jsx";
 import RegisterPage from "./pages/authPages/register/registerPage.jsx";
-import Dashboard from "./pages/authPages/dashboard/Dashboard.jsx";
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import AlertNotification from './components/AlertNotification.jsx';
 
 function App() {

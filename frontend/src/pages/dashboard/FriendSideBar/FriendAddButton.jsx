@@ -1,6 +1,6 @@
  import React,{useState} from 'react';
 import {styled} from '@mui/system';
-import CustomPrimaryButton from '../../../../components/CustomPrimaryButton';
+import CustomPrimaryButton from '../../../components/CustomPrimaryButton';
 import AddFriendDialog from './AddFriendDialog';
 
 

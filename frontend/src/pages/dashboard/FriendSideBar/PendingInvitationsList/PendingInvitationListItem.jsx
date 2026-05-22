@@ -2,7 +2,7 @@ import React ,{useState} from "react";
 import { styled } from "@mui/material";
  
 import {Box,Tooltip,Typography } from "@mui/material";
-import Avatar from "../../../../../components/Avatar.jsx" ;
+import Avatar from "../../../../components/Avatar.jsx" ;
 import InvitationDecisionButton from "./InvitationDecisionButton.jsx";
 
 
