@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import {
     addMessage,
     addPendingInvitation,
+    markMessagesRead,
     setFriends,
     setOnlineUsers,
 } from '../../store/actions/dashboardAction.js';
@@ -25,7 +26,14 @@ console.log(socket.id);
     })
 
     socket.on("direct-message",(message)=>{
-        dispatch(addMessage(message));
+        dispatch(addMessage({
+            ...message,
+            isOwn: message.senderUserId === userDetails.userId,
+        }));
+    })
+
+    socket.on("messages-read",(data)=>{
+        dispatch(markMessagesRead(data));
     })
 
     socket.on("friend-invitation",(invitation)=>{
@@ -39,4 +47,8 @@ console.log(socket.id);
 
 export const sendDirectMessage=(data)=>{
     socket?.emit("direct-message",data);
+}
+
+export const readMessages=(data)=>{
+    socket?.emit("read-messages",data);
 }

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { styled } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
-import { getFriends } from "../../../../api";
+import { getFriends, getUnreadMessages } from "../../../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { setFriends } from "../../../../store/actions/dashboardAction.js";
+import { setFriends, setUnreadMessages } from "../../../../store/actions/dashboardAction.js";
 
 const MainContainer = styled("div")({
   flexGrow: 1,
@@ -22,6 +22,12 @@ const FriendsList=( )=> {
 
       if(!response.error){
         dispatch(setFriends(response.data.friends));
+      }
+
+      const unreadResponse=await getUnreadMessages();
+
+      if(!unreadResponse.error){
+        dispatch(setUnreadMessages(unreadResponse.data.unreadMessages));
       }
     };
 

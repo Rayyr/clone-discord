@@ -2,6 +2,7 @@ const verifyToken = require("./middleware/verifyToken.js");
 const newConnectionHandler=require("./socketHandlers/newConnectionHandler.js");
 const disconnectHandler=require("./socketHandlers/disconnectHandler.js");
 const directMessageHandler=require("./socketHandlers/directMessageHandler.js");
+const readMessagesHandler=require("./socketHandlers/readMessagesHandler.js");
 const serverStore=require("./serverStore.js");
 
 const registerSocketServer=(server)=>{
@@ -23,6 +24,9 @@ const registerSocketServer=(server)=>{
         newConnectionHandler(socket,io);
         socket.on("direct-message",(data)=>{
             directMessageHandler(socket,io,data);
+        })
+        socket.on("read-messages",(data)=>{
+            readMessagesHandler(socket,io,data);
         })
         socket.on("disconnect",()=>{
             disconnectHandler(socket,io);

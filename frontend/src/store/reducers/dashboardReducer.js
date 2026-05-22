@@ -29,7 +29,7 @@ const reducer = (state = initState, action) => {
             };
         case dashboardAction.ADD_MESSAGE:
             const messageAlreadyAdded = state.messages.some((message) => message.id === action.message.id);
-            const shouldMarkUnread = !messageAlreadyAdded && state.chosenChatDetails?.id !== action.message.senderUserId;
+            const shouldMarkUnread = !messageAlreadyAdded && !action.message.isOwn && state.chosenChatDetails?.id !== action.message.senderUserId;
 
             return {
                 ...state,
@@ -45,6 +45,24 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 messages: action.messages,
+            };
+        case dashboardAction.MARK_MESSAGES_READ:
+            return {
+                ...state,
+                messages: state.messages.map((message) =>
+                    action.messageIds.includes(message.id)
+                        ? {
+                            ...message,
+                            isRead: true,
+                            readAt: action.readAt,
+                        }
+                        : message
+                ),
+            };
+        case dashboardAction.SET_UNREAD_MESSAGES:
+            return {
+                ...state,
+                unreadMessages: action.unreadMessages,
             };
         case dashboardAction.CLEAR_UNREAD_MESSAGES:
             return {

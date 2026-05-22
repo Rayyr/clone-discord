@@ -118,6 +118,18 @@ return {
     }
 }
 
+export const getUnreadMessages=async()=>{
+    try{
+return await apiClient.get("/message/unread");
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

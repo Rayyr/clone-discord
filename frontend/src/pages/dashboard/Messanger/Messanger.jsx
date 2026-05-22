@@ -2,7 +2,7 @@
   import {styled} from '@mui/system';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendDirectMessage } from '../../realTimeConnection.jsx/SocketConnection.jsx';
+import { readMessages, sendDirectMessage } from '../../realTimeConnection.jsx/SocketConnection.jsx';
 import { getDirectMessagesHistory } from '../../../api.js';
 import { setMessages } from '../../../store/actions/dashboardAction.js';
 
@@ -62,6 +62,22 @@ const Messanger=()=> {
   useEffect(()=>{
     messagesEndRef.current?.scrollIntoView({behavior:"smooth"});
   },[activeMessages]);
+
+  useEffect(()=>{
+    if(!chosenChatDetails){
+      return;
+    }
+
+    const hasUnreadIncomingMessage = activeMessages.some((m)=>
+      m.senderUserId === chosenChatDetails.id && !m.isRead
+    );
+
+    if(hasUnreadIncomingMessage){
+      readMessages({
+        senderUserId: chosenChatDetails.id,
+      });
+    }
+  },[activeMessages,chosenChatDetails]);
 
  const getMessageTime = (date) => {
   return new Date(date).toLocaleString([], {
@@ -131,6 +147,7 @@ const Messanger=()=> {
                 marginTop:"3px",
               }}>
                 {getMessageTime(m.date)}
+                {isOwnMessage && ` · ${m.isRead ? "Read" : "Sent"}`}
               </Typography>
             </Box>
           )})}

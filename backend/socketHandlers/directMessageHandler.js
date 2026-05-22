@@ -21,6 +21,8 @@ const directMessageHandler = async (socket, io, data) => {
     receiverUserId,
     content,
     date: savedMessage.createdAt,
+    isRead: savedMessage.isRead,
+    readAt: savedMessage.readAt,
   };
 
   const receiverSockets = serverStore.getActiveConnections({
