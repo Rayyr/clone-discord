@@ -63,12 +63,15 @@ const Messanger=()=> {
     messagesEndRef.current?.scrollIntoView({behavior:"smooth"});
   },[activeMessages]);
 
-  const getMessageTime=(date)=>{
-    return new Date(date).toLocaleTimeString([],{
-      hour:"2-digit",
-      minute:"2-digit",
-    });
-  };
+ const getMessageTime = (date) => {
+  return new Date(date).toLocaleString([], {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
   const handleSendMessage=()=>{
     if(!message.trim() || !chosenChatDetails){
