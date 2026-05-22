@@ -9,8 +9,8 @@ export const authAction={
 export const getAction=(dispatch)=>{
     return {
         login:(userDetails,Navigate)=>dispatch(login(userDetails,Navigate)),
-        register:(userDetails,Navigate)=>dispatch(register(userDetails,Navigate))
-    
+        register:(userDetails,Navigate)=>dispatch(register(userDetails,Navigate)),
+    setUserDetails:(userDetails)=>dispatch(setUserDetails(userDetails))
     }
 }
 
@@ -33,7 +33,7 @@ export const login=(userDetails,Navigate)=>{
 }
 
 
-const setUserDetails=(userDetails)=>{
+export const setUserDetails=(userDetails)=>{
     return{
         type:authAction.SET_USER_DETAILS,
         userDetails

@@ -3,6 +3,9 @@ import { styled } from "@mui/material";
  
 import {Box,Tooltip,Typography } from "@mui/material";
 import Avatar from "../../../../../components/Avatar.jsx" ;
+import InvitationDecisionButton from "./InvitationDecisionButton.jsx";
+
+
 
 const PendingInvitationListItem = ({id,username,mail,acceptFriendInvitation=()=>{},rejectFriendInvitation=()=>{}}) => {
  const [buttonDisabled,setButtonDisabled]=useState(false);
@@ -29,6 +32,12 @@ const PendingInvitationListItem = ({id,username,mail,acceptFriendInvitation=()=>
             flexGrow:1,
 
         }}  variant="subtitle1">{username}</Typography>
+  <InvitationDecisionButton
+  disabled={buttonDisabled}
+  acceptInvitationHandler={handleAcceptFriendInvitation}
+  rejectInvitationHandler={handleRejectFriendInvitation}
+  />
+  
     </Box>
   </div>
     </Tooltip> 
