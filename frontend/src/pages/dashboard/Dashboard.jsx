@@ -21,7 +21,7 @@ if(!userDetails){
   logout();
 } else{
   dispatch(setUserDetails(userDetails));
-connectionSocketServer();
+connectionSocketServer(JSON.parse(userDetails));
 }
 },[])
  
