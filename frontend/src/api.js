@@ -106,6 +106,18 @@ return {
     }
 }
 
+export const getDirectMessagesHistory=async(receiverUserId)=>{
+    try{
+return await apiClient.get(`/message/direct/${receiverUserId}`);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

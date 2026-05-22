@@ -20,8 +20,9 @@ const userDetails=localStorage.getItem("user");
 if(!userDetails){
   logout();
 } else{
-  dispatch(setUserDetails(userDetails));
-connectionSocketServer(JSON.parse(userDetails),dispatch);
+  const parsedUserDetails=JSON.parse(userDetails);
+  dispatch(setUserDetails(parsedUserDetails));
+connectionSocketServer(parsedUserDetails,dispatch);
 }
 },[dispatch])
  

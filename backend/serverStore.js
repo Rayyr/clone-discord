@@ -30,10 +30,23 @@ const getOnlineUsers=()=>{
     return onlineUsers;
 }
 
+const getActiveConnections=({userId})=>{
+    const activeConnections=[];
+
+    connectedUsers.forEach((value,key)=>{
+        if(value.userId===userId.toString()){
+            activeConnections.push(key);
+        }
+    });
+
+    return activeConnections;
+}
+
 
 
 module.exports={
     addNewConnectedUser,
     removeConnectedUser,
-    getOnlineUsers
+    getOnlineUsers,
+    getActiveConnections
 }

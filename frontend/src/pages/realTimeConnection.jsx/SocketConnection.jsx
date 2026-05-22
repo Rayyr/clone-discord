@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { setOnlineUsers } from '../../store/actions/dashboardAction.js';
+import { addMessage, setOnlineUsers } from '../../store/actions/dashboardAction.js';
 
 
 let socket=null;
@@ -18,4 +18,12 @@ console.log(socket.id);
     socket.on("online-users",(onlineUsers)=>{
         dispatch(setOnlineUsers(onlineUsers));
     })
+
+    socket.on("direct-message",(message)=>{
+        dispatch(addMessage(message));
+    })
+}
+
+export const sendDirectMessage=(data)=>{
+    socket?.emit("direct-message",data);
 }
