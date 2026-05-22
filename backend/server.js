@@ -7,6 +7,7 @@ require('dotenv').config();
 const socketServer=require("./socketServer.js");
 
 const authRouter=require("./routes/authRoute.js");
+const friendInvitationRouter=require("./routes/friendInvitationRoute.js");
 
 const Port=process.env.Port || process.env.API_Port;
 const app=express();
@@ -28,3 +29,4 @@ mongoose.connect(process.env.mongo_url)
 
 //register the routes
 app.use("/api/auth",authRouter);
+app.use("/api/friend-invitation",friendInvitationRouter);

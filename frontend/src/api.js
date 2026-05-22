@@ -46,6 +46,18 @@ return {
     }
 }
 
+export const sendFriendInvitation=async(data)=>{
+    try{
+return await apiClient.post("/friend-invitation/invite",data);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

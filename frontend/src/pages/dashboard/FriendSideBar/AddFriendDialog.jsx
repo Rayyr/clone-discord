@@ -9,17 +9,29 @@ import Typography from "@mui/material/Typography";
 import DialogTitle from "@mui/material/DialogTitle";
 import InputWithLabel from "../../../components/InputWithLabel";
 import CustomPrimaryButton from "../../../components/CustomPrimaryButton";
+import { sendFriendInvitation as sendFriendInvitationRequest } from "../../../api";
+import { useDispatch } from "react-redux";
+import { openAlertMessage } from "../../../store/actions/alertAction";
 
 
-const AddFriendDialog=({isDialogOpen,closeDialogHandler,
-    sendFriendInvitation=()=>{
+const AddFriendDialog=({isDialogOpen,closeDialogHandler})=> {
 
-    }
-})=> {
-
+    const dispatch=useDispatch();
     const [mail,setMail]=useState('');
-    const [isFormValid,setIsFormValid]=useState('');
-    const handleSendInvitation=()=>{};
+    const [isFormValid,setIsFormValid]=useState(false);
+    const handleSendInvitation=async()=>{
+        const response=await sendFriendInvitationRequest({
+            targetMailAddress:mail
+        });
+
+        if(response.error){
+            dispatch(openAlertMessage(response?.error?.response?.data || "Something went wrong"));
+            return;
+        }
+
+        dispatch(openAlertMessage("Invitation sent"));
+        handleCloseDialog();
+    };
     const handleCloseDialog=()=>{
         closeDialogHandler();
         setMail('');
@@ -61,7 +73,7 @@ const AddFriendDialog=({isDialogOpen,closeDialogHandler,
     label="Send"
     AdditionalStyle={{
         marginLeft:"15px"
-        ,marginRught:"15px",
+        ,marginRight:"15px",
         marginBottom:"10px"
     }}
     />   
