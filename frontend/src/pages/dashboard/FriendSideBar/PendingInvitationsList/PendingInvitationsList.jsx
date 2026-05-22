@@ -1,25 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material";
 import PendingInvitationListItem from "./PendingInvitationListItem";
+import { getPendingInvitations } from "../../../../api";
 
-
-const DUMMY_INVITATIONS=[
-  {
-    _id:"1",
-    senderId:{
-      username:"mahmood",
-      mail:"mahmood@gmail.com",
-    }
-  },
-    {
-    _id:"2",
-    senderId:{
-      username:"ahmad",
-      mail:"ahmad@gmail.com",
-    }
-  }
-
-]
 const MainContainer = styled("div")({
   width:"100%",
   height:"22%",
@@ -30,9 +13,23 @@ const MainContainer = styled("div")({
 });
 
 const PendingInvitationsList = () => {
+  const [invitations,setInvitations]=useState([]);
+
+  useEffect(()=>{
+    const fetchPendingInvitations=async()=>{
+      const response=await getPendingInvitations();
+
+      if(!response.error){
+        setInvitations(response.data.pendingInvitations);
+      }
+    };
+
+    fetchPendingInvitations();
+  },[]);
+
   return (
   <MainContainer>
-    {DUMMY_INVITATIONS.map((invitation)=>(
+    {invitations.map((invitation)=>(
       <PendingInvitationListItem
       key={invitation._id}
       id={invitation._id}

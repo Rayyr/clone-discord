@@ -58,6 +58,18 @@ return {
     }
 }
 
+export const getPendingInvitations=async()=>{
+    try{
+return await apiClient.get("/friend-invitation/pending");
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

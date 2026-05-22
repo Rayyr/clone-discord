@@ -38,6 +38,23 @@ const invite = async (req, res) => {
   }
 };
 
+const getPendingInvitations = async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    const invitations = await FriendInvitation.find({
+      receiverId: userId,
+    }).populate("senderId", "username mail");
+
+    return res.status(200).json({
+      pendingInvitations: invitations,
+    });
+  } catch (error) {
+    return res.status(500).send("Something went wrong, please try again");
+  }
+};
+
 module.exports = {
   invite,
+  getPendingInvitations,
 };
