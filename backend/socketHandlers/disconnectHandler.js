@@ -1,6 +1,6 @@
-const serverStore=require("../socketServer.js");
+const serverStore=require("../serverStore.js");
 const disconnectHandler=(socket)=>{
-serverStore.removeConnectedUser(socket.id);
+serverStore.removeConnectedUser({socketId:socket.id});
 };
 
 module.exports=disconnectHandler;

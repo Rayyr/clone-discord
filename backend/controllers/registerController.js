@@ -16,7 +16,7 @@ const register=async(req,res)=>{
     })
  
     const token=jwt.sign({
-      userId:user.__id,
+      userId:user._id,
       mail
     },
     process.env.JWT_SECRET,
@@ -32,7 +32,7 @@ const register=async(req,res)=>{
     }
   })
     }catch(error){
-
+      return res.status(500).send("Something went wrong , please try again");
     }
 } 
 

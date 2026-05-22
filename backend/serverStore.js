@@ -1,5 +1,3 @@
-const { closeAlertMessage } = require("../frontend/src/store/actions/alertAction");
-
 const connectedUsers=new Map();
 
 
@@ -23,7 +21,7 @@ console.log(connectedUsers);
 
 
 
-module .exports={
+module.exports={
     addNewConnectedUser,
     removeConnectedUser
 }
