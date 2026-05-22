@@ -4,7 +4,7 @@ import {fontWeight, styled} from "@mui/system";
 
 
  const RedirectText=styled("span")({
-    color:"#00Aff4",
+    color:"#5865F2",
     fontWeight:500,
     cursor:"pointer"
  });

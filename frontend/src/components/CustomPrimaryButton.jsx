@@ -13,7 +13,11 @@
         textTransform:"none",
         fontSize:"16px",
         width:"100%",
-        height:"40px"
+        height:"40px",
+          "&.Mui-disabled": {
+    backgroundColor: "#B9BBBE",
+    color: "black"
+  }
     }}
     style ={AdditionalStyle?AdditionalStyle:{}}
   disabled={disabled}

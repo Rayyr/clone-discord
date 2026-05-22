@@ -7,7 +7,7 @@ const OnlineIndicator=()=> {
  
     return (
    <Box
-   sx={{color:"#3ba55d",
+   sx={{color:"#3BA55D",
     display:"flex",
     alignItems:"center",
     position:"absolute",

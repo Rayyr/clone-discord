@@ -25,7 +25,7 @@ Navigate('/register');
     title={!isFormated?getFormatedNotValidMessage():getFormatedValidMessage()}>
     <div>
     <CustomPrimaryButton
-    label="login"
+    label="Login"
     AdditionalStyle={{marginTop:"30px"}}
     disabled={!isFormated}
     onClick={handleLogin}
@@ -34,7 +34,7 @@ Navigate('/register');
 </div>
 </Tooltip>
     <RedirectInfo
-    text="Need an account"
+     text="Need an account? "
      redirectText="Create an account"
      additionalStyles={{marginTop:'5px'}}
      redirectHandler={handlePushToRegisterPage}

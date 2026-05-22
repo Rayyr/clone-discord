@@ -55,7 +55,7 @@ const AddFriendDialog=({isDialogOpen,closeDialogHandler})=> {
 </DialogContentText>
 
  <InputWithLabel
-    label="Mail"
+    label="Email"
     type="text"
     value={mail}
     setValue={setMail}

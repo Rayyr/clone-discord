@@ -37,7 +37,7 @@ const MainPageButton=()=> {
         minWidth:0,
         marginTop:"610px",
         
-        backgroundColor:"green",
+        backgroundColor:"#3BA55D",
         color:"white"
         
 
