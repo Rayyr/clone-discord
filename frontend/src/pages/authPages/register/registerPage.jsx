@@ -1,8 +1,8 @@
  import React ,{useState,useEffect} from 'react';
   import AuthBox from '../../../components/AuthBox.jsx';
-import LoginHeader from './RegisterHeader.jsx';
-import LoginInputs from './RegisterInputs.jsx';
-import LoginFooter from './RegisterFooter.jsx';
+import RegisterHeader from './RegisterHeader.jsx';
+import RegisterInputs from './RegisterInputs.jsx';
+import RegisterFooter from './RegisterFooter.jsx';
 import { validateRegisterForm } from '../../../utils/validates.js';
 import {useDispatch} from 'react-redux';
 import {register} from "../../../store/actions/authAction.js";
@@ -10,7 +10,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-const LoginPage=()=> {
+const RegisterPage=()=> {
   const dispatch=useDispatch();
   const navigate=useNavigate();
 
@@ -27,7 +27,7 @@ const LoginPage=()=> {
 },[mail,password,username,setIsFormated])
 
 
- const handleLogin=async ()=>{
+ const handleRegister=async ()=>{
   
 if(isFormated){
   const userDetails={
@@ -42,8 +42,8 @@ await dispatch(register(userDetails,navigate));
  }
   return (
     <AuthBox>
-      <LoginHeader/>
-           <LoginInputs
+      <RegisterHeader/>
+           <RegisterInputs
            
            mail={mail}
            setmail={setMail}
@@ -53,10 +53,10 @@ await dispatch(register(userDetails,navigate));
            setusername={setUsername}
            />
 
-<LoginFooter
-isFormated={isFormated}  handleLogin={handleLogin}/>
+<RegisterFooter
+isFormated={isFormated}  handleRegister={handleRegister}/>
         </AuthBox> 
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

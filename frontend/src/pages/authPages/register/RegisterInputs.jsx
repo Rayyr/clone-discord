@@ -1,6 +1,6 @@
  import React from 'react';
   import InputWithLabel from '../../../components/InputWithLabel';
-function LoginInputs({mail,setmail,password,setpassword,username,setusername}) {
+function RegisterInputs({mail,setmail,password,setpassword,username,setusername}) {
   return (
     <>
     <InputWithLabel 
@@ -31,4 +31,4 @@ function LoginInputs({mail,setmail,password,setpassword,username,setusername}) {
   );
 }
 
-export default LoginInputs;
+export default RegisterInputs;

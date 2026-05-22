@@ -5,11 +5,11 @@ function LoginHeader() {
   return (
     <>
       <Typography variant="h5" sx={{color:"white"}}>
-       well come back 
+       Wellcome Back
       </Typography>
 
-         <Typography variant="h5" sx={{color:"#b9bbbe"}}>
-       we are happy that yiu are with us 
+         <Typography variant="h6" sx={{color:"#b9bbbe"}}>
+       We are happy that you are with us ! 
       </Typography>
     </>
   );

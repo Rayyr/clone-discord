@@ -4,7 +4,7 @@ import RedirectInfo from '../../../components/RedirectInfo';
 import {useNavigate} from 'react-router-dom';
 import {Tooltip} from "@mui/material";
 
-  function LoginFooter({handleLogin,isFormated}) {
+  function RegisterFooter({handleRegister,isFormated}) {
  const Navigate=useNavigate();
 
     const handlePushToLoginPage=()=>{
@@ -16,7 +16,7 @@ Navigate('/login');
  }
 
   const getFormatedNotValidMessage=()=>{
-    return "Enter correct email address and password should contains 6 to 12 characters and username should be between 2 toi 12 charcters";
+    return "Enter correct email address and password should be between 6 to 12 characters and username should be between 2 to 12 charcters";
  }
     return (
 
@@ -28,7 +28,7 @@ Navigate('/login');
     label="Register"
     AdditionalStyle={{marginTop:"30px"}}
     disabled={!isFormated}
-    onClick={handleLogin}
+    onClick={handleRegister}
     
     />
 </div>
@@ -45,4 +45,4 @@ Navigate('/login');
   );
 }
 
-export default LoginFooter;
+export default RegisterFooter;
