@@ -1,40 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
+import { getFriends } from "../../../../api";
+import { useSelector } from "react-redux";
 
 const MainContainer = styled("div")({
   flexGrow: 1,
   width: "100%",
 });
 
-const Dummy_Friends=[
-  {
-    id:1,
-    username:"mahmood",
-    isOnline:true
-  }
-,
-    {
-    id:2,
-    username:"ali",
-    isOnline:false
-  },
-    {
-    id:3,
-    username:"ahmad",
-    isOnline:true
-  }
-];
-
 const FriendsList=( )=> {
+  const [friends,setFriends]=useState([]);
+  const onlineUsers=useSelector((state)=>state.dashboard.onlineUsers);
+
+  useEffect(()=>{
+    const fetchFriends=async()=>{
+      const response=await getFriends();
+
+      if(!response.error){
+        setFriends(response.data.friends);
+      }
+    };
+
+    fetchFriends();
+  },[]);
+
   return (
     <MainContainer>
-    {Dummy_Friends.map((f)=>(
+    {friends.map((f)=>(
       <FriendsListItem
       username={f.username}
-      id={f.id}
-      key={f.id} 
-      isOnline={f.isOnline}
+      id={f._id}
+      key={f._id} 
+      isOnline={onlineUsers.includes(f._id.toString())}
       />
     ))}
     </MainContainer> 

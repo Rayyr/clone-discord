@@ -5,6 +5,9 @@ const auth = require("../middleware/auth.js");
 const {
   invite,
   getPendingInvitations,
+  accept,
+  reject,
+  getFriends,
 } = require("../controllers/friendInvitationController.js");
 
 const router = express.Router();
@@ -15,5 +18,8 @@ const inviteSchema = joi.object({
 
 router.post("/invite", auth, validation.body(inviteSchema), invite);
 router.get("/pending", auth, getPendingInvitations);
+router.post("/accept", auth, accept);
+router.post("/reject", auth, reject);
+router.get("/friends", auth, getFriends);
 
 module.exports = router;

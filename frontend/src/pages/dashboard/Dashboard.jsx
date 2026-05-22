@@ -21,9 +21,9 @@ if(!userDetails){
   logout();
 } else{
   dispatch(setUserDetails(userDetails));
-connectionSocketServer(JSON.parse(userDetails));
+connectionSocketServer(JSON.parse(userDetails),dispatch);
 }
-},[])
+},[dispatch])
  
   return (
     <Wrapper>

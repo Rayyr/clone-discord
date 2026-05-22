@@ -11,6 +11,8 @@ const newConnectionHandler=async(socket,io)=>{
         socketId:socket.id,
         userId:userDetails.userId
     })
+
+    io.emit("online-users",serverStore.getOnlineUsers());
 }
 
 

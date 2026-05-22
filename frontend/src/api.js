@@ -70,6 +70,42 @@ return {
     }
 }
 
+export const acceptFriendInvitation=async(data)=>{
+    try{
+return await apiClient.post("/friend-invitation/accept",data);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const rejectFriendInvitation=async(data)=>{
+    try{
+return await apiClient.post("/friend-invitation/reject",data);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const getFriends=async()=>{
+    try{
+return await apiClient.get("/friend-invitation/friends");
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

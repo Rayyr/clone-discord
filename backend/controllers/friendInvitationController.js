@@ -54,7 +54,85 @@ const getPendingInvitations = async (req, res) => {
   }
 };
 
+const accept = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const { userId } = req.user;
+
+    const invitation = await FriendInvitation.findById(id);
+
+    if (!invitation) {
+      return res.status(404).send("Invitation not found");
+    }
+
+    if (invitation.receiverId.toString() !== userId) {
+      return res.status(403).send("You cannot accept this invitation");
+    }
+
+    const senderId = invitation.senderId;
+    const receiverId = invitation.receiverId;
+
+    await User.findByIdAndUpdate(senderId, {
+      $addToSet: { friends: receiverId },
+    });
+
+    await User.findByIdAndUpdate(receiverId, {
+      $addToSet: { friends: senderId },
+    });
+
+    await FriendInvitation.findByIdAndDelete(id);
+
+    return res.status(200).send("Invitation accepted");
+  } catch (error) {
+    return res.status(500).send("Something went wrong, please try again");
+  }
+};
+
+const reject = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const { userId } = req.user;
+
+    const invitation = await FriendInvitation.findById(id);
+
+    if (!invitation) {
+      return res.status(404).send("Invitation not found");
+    }
+
+    if (invitation.receiverId.toString() !== userId) {
+      return res.status(403).send("You cannot reject this invitation");
+    }
+
+    await FriendInvitation.findByIdAndDelete(id);
+
+    return res.status(200).send("Invitation rejected");
+  } catch (error) {
+    return res.status(500).send("Something went wrong, please try again");
+  }
+};
+
+const getFriends = async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    const user = await User.findById(userId).populate("friends", "username mail");
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    return res.status(200).json({
+      friends: user.friends,
+    });
+  } catch (error) {
+    return res.status(500).send("Something went wrong, please try again");
+  }
+};
+
 module.exports = {
   invite,
   getPendingInvitations,
+  accept,
+  reject,
+  getFriends,
 };

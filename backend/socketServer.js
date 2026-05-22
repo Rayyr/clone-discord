@@ -19,7 +19,7 @@ const registerSocketServer=(server)=>{
         console.log(socket.id);
         newConnectionHandler(socket,io);
         socket.on("disconnect",()=>{
-            disconnectHandler(socket);
+            disconnectHandler(socket,io);
         })
     })
 
