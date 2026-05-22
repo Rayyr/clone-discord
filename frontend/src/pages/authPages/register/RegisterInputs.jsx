@@ -1,5 +1,5 @@
  import React from 'react';
-  import InputWithLabel from '../../../components/inputWithLabel';
+  import InputWithLabel from '../../../components/InputWithLabel';
 function LoginInputs({mail,setmail,password,setpassword,username,setusername}) {
   return (
     <>

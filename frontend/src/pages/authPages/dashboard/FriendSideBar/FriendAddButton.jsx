@@ -1,6 +1,8 @@
- import React from 'react';
+ import React,{useState} from 'react';
 import {styled} from '@mui/system';
 import CustomPrimaryButton from '../../../../components/CustomPrimaryButton';
+import AddFriendDialog from './AddFriendDialog';
+
 
   const additionalStyle= {
  marginTop:"10px",
@@ -11,9 +13,17 @@ import CustomPrimaryButton from '../../../../components/CustomPrimaryButton';
 
   };
 const FriendAddButton=()=> {
- const handleOpenAddFriendDialog=()=>{
-    
+
+const [isDialogOpen,setIsDialogOpen]=useState(false);
+
+    const handleOpenAddFriendDialog=()=>{
+    setIsDialogOpen(true);
  }
+
+    const handleCloseAddFriendDialog=()=>{
+    setIsDialogOpen(false);
+ }
+
     return (
     <>
      <CustomPrimaryButton
@@ -21,7 +31,9 @@ const FriendAddButton=()=> {
      label="Add Friend"
      onClick={handleOpenAddFriendDialog}/>
 
-       
+       <AddFriendDialog
+       isDialogOpen={isDialogOpen}
+       closeDialogHandler={handleCloseAddFriendDialog}/>
     </> 
   );
 }
