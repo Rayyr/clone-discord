@@ -4,6 +4,8 @@ const initState = {
     onlineUsers: [],
     chosenChatDetails: null,
     messages: [],
+    friends: [],
+    pendingInvitations: [],
 };
 
 const reducer = (state = initState, action) => {
@@ -27,6 +29,30 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 messages: action.messages,
+            };
+        case dashboardAction.SET_FRIENDS:
+            return {
+                ...state,
+                friends: action.friends,
+            };
+        case dashboardAction.SET_PENDING_INVITATIONS:
+            return {
+                ...state,
+                pendingInvitations: action.pendingInvitations,
+            };
+        case dashboardAction.ADD_PENDING_INVITATION:
+            if (state.pendingInvitations.some((invitation) => invitation._id === action.pendingInvitation._id)) {
+                return state;
+            }
+
+            return {
+                ...state,
+                pendingInvitations: [...state.pendingInvitations, action.pendingInvitation],
+            };
+        case dashboardAction.REMOVE_PENDING_INVITATION:
+            return {
+                ...state,
+                pendingInvitations: state.pendingInvitations.filter((invitation) => invitation._id !== action.id),
             };
         default:
             return state;

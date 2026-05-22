@@ -1,4 +1,9 @@
 const connectedUsers=new Map();
+let io=null;
+
+const setSocketServerInstance=(ioInstance)=>{
+    io=ioInstance;
+}
 
 
 const addNewConnectedUser=({socketId,userId})=>{
@@ -42,11 +47,17 @@ const getActiveConnections=({userId})=>{
     return activeConnections;
 }
 
+const getSocketServerInstance=()=>{
+    return io;
+}
+
 
 
 module.exports={
+    setSocketServerInstance,
     addNewConnectedUser,
     removeConnectedUser,
     getOnlineUsers,
-    getActiveConnections
+    getActiveConnections,
+    getSocketServerInstance
 }

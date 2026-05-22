@@ -1,5 +1,6 @@
 const FriendInvitation = require("../models/friendInvitation.js");
 const User = require("../models/users.js");
+const serverStore = require("../serverStore.js");
 
 const invite = async (req, res) => {
   try {
@@ -27,10 +28,22 @@ const invite = async (req, res) => {
       return res.status(409).send("Invitation already sent");
     }
 
-    await FriendInvitation.create({
+    const invitation = await FriendInvitation.create({
       senderId: userId,
       receiverId: targetUser._id,
     });
+
+    const populatedInvitation = await invitation.populate("senderId", "username mail");
+    const receiverSockets = serverStore.getActiveConnections({
+      userId: targetUser._id,
+    });
+    const io = serverStore.getSocketServerInstance();
+
+    if (io) {
+      receiverSockets.forEach((socketId) => {
+        io.to(socketId).emit("friend-invitation", populatedInvitation);
+      });
+    }
 
     return res.status(201).send("Invitation has been sent");
   } catch (error) {
@@ -52,6 +65,28 @@ const getPendingInvitations = async (req, res) => {
   } catch (error) {
     return res.status(500).send("Something went wrong, please try again");
   }
+};
+
+const emitFriendListUpdate = async (userId) => {
+  const io = serverStore.getSocketServerInstance();
+
+  if (!io) {
+    return;
+  }
+
+  const user = await User.findById(userId).populate("friends", "username mail");
+
+  if (!user) {
+    return;
+  }
+
+  const receiverSockets = serverStore.getActiveConnections({
+    userId,
+  });
+
+  receiverSockets.forEach((socketId) => {
+    io.to(socketId).emit("friend-list-updated", user.friends);
+  });
 };
 
 const accept = async (req, res) => {
@@ -81,6 +116,9 @@ const accept = async (req, res) => {
     });
 
     await FriendInvitation.findByIdAndDelete(id);
+
+    await emitFriendListUpdate(senderId);
+    await emitFriendListUpdate(receiverId);
 
     return res.status(200).send("Invitation accepted");
   } catch (error) {

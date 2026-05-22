@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
 import { getFriends } from "../../../../api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setFriends } from "../../../../store/actions/dashboardAction.js";
 
 const MainContainer = styled("div")({
   flexGrow: 1,
@@ -10,7 +11,8 @@ const MainContainer = styled("div")({
 });
 
 const FriendsList=( )=> {
-  const [friends,setFriends]=useState([]);
+  const dispatch=useDispatch();
+  const friends=useSelector((state)=>state.dashboard.friends);
   const onlineUsers=useSelector((state)=>state.dashboard.onlineUsers);
 
   useEffect(()=>{
@@ -18,12 +20,12 @@ const FriendsList=( )=> {
       const response=await getFriends();
 
       if(!response.error){
-        setFriends(response.data.friends);
+        dispatch(setFriends(response.data.friends));
       }
     };
 
     fetchFriends();
-  },[]);
+  },[dispatch]);
 
   return (
     <MainContainer>

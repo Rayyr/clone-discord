@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material";
 import PendingInvitationListItem from "./PendingInvitationListItem";
 import {
   acceptFriendInvitation,
+  getFriends,
   getPendingInvitations,
   rejectFriendInvitation,
 } from "../../../../api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openAlertMessage } from "../../../../store/actions/alertAction";
+import {
+  removePendingInvitation,
+  setFriends,
+  setPendingInvitations,
+} from "../../../../store/actions/dashboardAction";
 
 const MainContainer = styled("div")({
   width:"100%",
@@ -19,7 +25,7 @@ const MainContainer = styled("div")({
 });
 
 const PendingInvitationsList = () => {
-  const [invitations,setInvitations]=useState([]);
+  const invitations=useSelector((state)=>state.dashboard.pendingInvitations);
   const dispatch=useDispatch();
 
   useEffect(()=>{
@@ -27,17 +33,15 @@ const PendingInvitationsList = () => {
       const response=await getPendingInvitations();
 
       if(!response.error){
-        setInvitations(response.data.pendingInvitations);
+        dispatch(setPendingInvitations(response.data.pendingInvitations));
       }
     };
 
     fetchPendingInvitations();
-  },[]);
+  },[dispatch]);
 
   const removeInvitation=(id)=>{
-    setInvitations((currentInvitations)=>
-      currentInvitations.filter((invitation)=>invitation._id!==id)
-    );
+    dispatch(removePendingInvitation(id));
   };
 
   const handleAcceptInvitation=async({id})=>{
@@ -49,6 +53,10 @@ const PendingInvitationsList = () => {
     }
 
     removeInvitation(id);
+    const friendsResponse=await getFriends();
+    if(!friendsResponse.error){
+      dispatch(setFriends(friendsResponse.data.friends));
+    }
     dispatch(openAlertMessage("Invitation accepted"));
   };
 

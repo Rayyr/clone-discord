@@ -1,5 +1,10 @@
 import io from 'socket.io-client';
-import { addMessage, setOnlineUsers } from '../../store/actions/dashboardAction.js';
+import {
+    addMessage,
+    addPendingInvitation,
+    setFriends,
+    setOnlineUsers,
+} from '../../store/actions/dashboardAction.js';
 
 
 let socket=null;
@@ -21,6 +26,14 @@ console.log(socket.id);
 
     socket.on("direct-message",(message)=>{
         dispatch(addMessage(message));
+    })
+
+    socket.on("friend-invitation",(invitation)=>{
+        dispatch(addPendingInvitation(invitation));
+    })
+
+    socket.on("friend-list-updated",(friends)=>{
+        dispatch(setFriends(friends));
     })
 }
 
