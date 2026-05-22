@@ -4,6 +4,7 @@ const initState = {
     onlineUsers: [],
     chosenChatDetails: null,
     messages: [],
+    unreadMessages: {},
     friends: [],
     pendingInvitations: [],
 };
@@ -19,16 +20,39 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 chosenChatDetails: action.chosenChatDetails,
+                unreadMessages: action.chosenChatDetails
+                    ? {
+                        ...state.unreadMessages,
+                        [action.chosenChatDetails.id]: 0,
+                    }
+                    : state.unreadMessages,
             };
         case dashboardAction.ADD_MESSAGE:
+            const messageAlreadyAdded = state.messages.some((message) => message.id === action.message.id);
+            const shouldMarkUnread = !messageAlreadyAdded && state.chosenChatDetails?.id !== action.message.senderUserId;
+
             return {
                 ...state,
-                messages: [...state.messages, action.message],
+                messages: messageAlreadyAdded ? state.messages : [...state.messages, action.message],
+                unreadMessages: shouldMarkUnread
+                    ? {
+                        ...state.unreadMessages,
+                        [action.message.senderUserId]: (state.unreadMessages[action.message.senderUserId] || 0) + 1,
+                    }
+                    : state.unreadMessages,
             };
         case dashboardAction.SET_MESSAGES:
             return {
                 ...state,
                 messages: action.messages,
+            };
+        case dashboardAction.CLEAR_UNREAD_MESSAGES:
+            return {
+                ...state,
+                unreadMessages: {
+                    ...state.unreadMessages,
+                    [action.userId]: 0,
+                },
             };
         case dashboardAction.SET_FRIENDS:
             return {

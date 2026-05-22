@@ -14,6 +14,7 @@ const FriendsList=( )=> {
   const dispatch=useDispatch();
   const friends=useSelector((state)=>state.dashboard.friends);
   const onlineUsers=useSelector((state)=>state.dashboard.onlineUsers);
+  const unreadMessages=useSelector((state)=>state.dashboard.unreadMessages);
 
   useEffect(()=>{
     const fetchFriends=async()=>{
@@ -35,6 +36,7 @@ const FriendsList=( )=> {
       id={f._id}
       key={f._id} 
       isOnline={onlineUsers.includes(f._id.toString())}
+      unreadCount={unreadMessages[f._id] || 0}
       />
     ))}
     </MainContainer> 

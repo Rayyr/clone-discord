@@ -3,6 +3,7 @@ export const dashboardAction = {
     SET_CHOSEN_CHAT_DETAILS: "DASHBOARD.SET_CHOSEN_CHAT_DETAILS",
     ADD_MESSAGE: "DASHBOARD.ADD_MESSAGE",
     SET_MESSAGES: "DASHBOARD.SET_MESSAGES",
+    CLEAR_UNREAD_MESSAGES: "DASHBOARD.CLEAR_UNREAD_MESSAGES",
     SET_FRIENDS: "DASHBOARD.SET_FRIENDS",
     SET_PENDING_INVITATIONS: "DASHBOARD.SET_PENDING_INVITATIONS",
     ADD_PENDING_INVITATION: "DASHBOARD.ADD_PENDING_INVITATION",
@@ -34,6 +35,13 @@ export const setMessages = (messages) => {
     return {
         type: dashboardAction.SET_MESSAGES,
         messages,
+    }
+}
+
+export const clearUnreadMessages = (userId) => {
+    return {
+        type: dashboardAction.CLEAR_UNREAD_MESSAGES,
+        userId,
     }
 }
 
