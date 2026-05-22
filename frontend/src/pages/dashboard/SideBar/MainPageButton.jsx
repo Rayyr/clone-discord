@@ -6,6 +6,7 @@
 
 const MainPageButton=()=> {
   return (
+    <>
     <Button
     style={{
         width:"48px",
@@ -19,9 +20,34 @@ const MainPageButton=()=> {
         color:"white"
 
     }}>
+
+      
      
        <GroupsIcon/> 
     </Button> 
+
+{/* for the logged in user info */}
+     <Button
+    style={{
+        width:"48px",
+        height:"48px",
+        borderRadius:"16px",
+        margin:0,
+        padding:0,
+        minWidth:0,
+        marginTop:"610px",
+        
+        backgroundColor:"green",
+        color:"white"
+        
+
+    }}>
+
+      
+     {JSON.parse(localStorage.getItem("user")).username}
+       
+    </Button> 
+    </>
   );
 }
 
