@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannels } from "../../../../api";
@@ -37,12 +38,22 @@ const ChannelsList = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
-          paddingRight: "8px",
-          marginTop: "-32px",
-          marginBottom: "4px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 8px 0 12px",
+          marginTop: "10px",
+          marginBottom: "6px",
         }}
       >
+        <Typography
+          sx={{
+            textTransform: "uppercase",
+            color: "#8e9297",
+            fontSize: "14px",
+          }}
+        >
+          Channels
+        </Typography>
         <ChannelAddButton onClick={() => setIsDialogOpen(true)} />
       </Box>
       {channels.map((channel) => (

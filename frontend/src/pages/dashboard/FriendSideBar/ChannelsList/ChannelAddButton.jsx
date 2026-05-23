@@ -10,7 +10,13 @@ const ChannelAddButton = ({ onClick }) => {
         minWidth: "28px",
         width: "28px",
         height: "28px",
+        borderRadius: "50%",
         color: "#b9bbbe",
+        padding: 0,
+        "&:hover": {
+          backgroundColor: "#40444b",
+          color: "#ffffff",
+        },
       }}
       title="Create channel"
     >

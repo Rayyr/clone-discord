@@ -19,7 +19,6 @@ const FriendsSideBar=()=> {
   return (
     <MainContainer>
      <FriendAddButton/>
-     <FriendsTitle title='CHANNELS'/>
      <ChannelsList/>
      <FriendsTitle title='PRIVATE MESSAGES'/>
       <FriendsList/>
