@@ -9,6 +9,7 @@ const socketServer=require("./socketServer.js");
 const authRouter=require("./routes/authRoute.js");
 const friendInvitationRouter=require("./routes/friendInvitationRoute.js");
 const messageRouter=require("./routes/messageRoute.js");
+const channelRouter=require("./routes/channelRoute.js");
 
 const Port=process.env.Port || process.env.API_Port;
 const app=express();
@@ -32,3 +33,4 @@ mongoose.connect(process.env.mongo_url)
 app.use("/api/auth",authRouter);
 app.use("/api/friend-invitation",friendInvitationRouter);
 app.use("/api/message",messageRouter);
+app.use("/api/channel",channelRouter);

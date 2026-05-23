@@ -6,6 +6,7 @@ const initState = {
     messages: [],
     unreadMessages: {},
     friends: [],
+    channels: [],
     pendingInvitations: [],
 };
 
@@ -20,7 +21,7 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 chosenChatDetails: action.chosenChatDetails,
-                unreadMessages: action.chosenChatDetails
+                unreadMessages: action.chosenChatDetails?.type !== "channel" && action.chosenChatDetails
                     ? {
                         ...state.unreadMessages,
                         [action.chosenChatDetails.id]: 0,
@@ -29,7 +30,9 @@ const reducer = (state = initState, action) => {
             };
         case dashboardAction.ADD_MESSAGE:
             const messageAlreadyAdded = state.messages.some((message) => message.id === action.message.id);
-            const shouldMarkUnread = !messageAlreadyAdded && !action.message.isOwn && state.chosenChatDetails?.id !== action.message.senderUserId;
+            const isChannelMessage = Boolean(action.message.channelId);
+            const unreadKey = isChannelMessage ? action.message.channelId : action.message.senderUserId;
+            const shouldMarkUnread = !isChannelMessage && !messageAlreadyAdded && !action.message.isOwn && state.chosenChatDetails?.id !== action.message.senderUserId;
 
             return {
                 ...state,
@@ -37,7 +40,7 @@ const reducer = (state = initState, action) => {
                 unreadMessages: shouldMarkUnread
                     ? {
                         ...state.unreadMessages,
-                        [action.message.senderUserId]: (state.unreadMessages[action.message.senderUserId] || 0) + 1,
+                        [unreadKey]: (state.unreadMessages[unreadKey] || 0) + 1,
                     }
                     : state.unreadMessages,
             };
@@ -76,6 +79,32 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 friends: action.friends,
+            };
+        case dashboardAction.SET_CHANNELS:
+            return {
+                ...state,
+                channels: action.channels,
+            };
+        case dashboardAction.ADD_CHANNEL:
+            return {
+                ...state,
+                channels: state.channels.some((channel) => channel.id === action.channel.id)
+                    ? state.channels.map((channel) =>
+                        channel.id === action.channel.id ? action.channel : channel
+                    )
+                    : [...state.channels, action.channel],
+            };
+        case dashboardAction.UPDATE_CHANNEL:
+            return {
+                ...state,
+                channels: state.channels.map((channel) =>
+                    channel.id === action.channel.id ? action.channel : channel
+                ),
+                chosenChatDetails: state.chosenChatDetails?.type === "channel" &&
+                    state.chosenChatDetails.id === action.channel.id &&
+                    !action.channel.isMember
+                    ? null
+                    : state.chosenChatDetails,
             };
         case dashboardAction.SET_PENDING_INVITATIONS:
             return {

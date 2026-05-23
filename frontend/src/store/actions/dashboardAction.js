@@ -7,6 +7,9 @@ export const dashboardAction = {
     SET_UNREAD_MESSAGES: "DASHBOARD.SET_UNREAD_MESSAGES",
     CLEAR_UNREAD_MESSAGES: "DASHBOARD.CLEAR_UNREAD_MESSAGES",
     SET_FRIENDS: "DASHBOARD.SET_FRIENDS",
+    SET_CHANNELS: "DASHBOARD.SET_CHANNELS",
+    ADD_CHANNEL: "DASHBOARD.ADD_CHANNEL",
+    UPDATE_CHANNEL: "DASHBOARD.UPDATE_CHANNEL",
     SET_PENDING_INVITATIONS: "DASHBOARD.SET_PENDING_INVITATIONS",
     ADD_PENDING_INVITATION: "DASHBOARD.ADD_PENDING_INVITATION",
     REMOVE_PENDING_INVITATION: "DASHBOARD.REMOVE_PENDING_INVITATION",
@@ -66,6 +69,27 @@ export const setFriends = (friends) => {
     return {
         type: dashboardAction.SET_FRIENDS,
         friends,
+    }
+}
+
+export const setChannels = (channels) => {
+    return {
+        type: dashboardAction.SET_CHANNELS,
+        channels,
+    }
+}
+
+export const addChannel = (channel) => {
+    return {
+        type: dashboardAction.ADD_CHANNEL,
+        channel,
+    }
+}
+
+export const updateChannel = (channel) => {
+    return {
+        type: dashboardAction.UPDATE_CHANNEL,
+        channel,
     }
 }
 

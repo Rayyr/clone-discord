@@ -14,6 +14,7 @@ const FriendsListItem=({id,username,isOnline,unreadCount})=> {
     dispatch(setChosenChatDetails({
       id,
       username,
+      type:"direct",
     }));
   };
 

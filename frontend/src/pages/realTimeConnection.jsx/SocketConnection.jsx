@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import {
     addMessage,
+    addChannel,
     addPendingInvitation,
     markMessagesRead,
     setFriends,
@@ -32,6 +33,20 @@ console.log(socket.id);
         }));
     })
 
+    socket.on("channel-message",(message)=>{
+        dispatch(addMessage({
+            ...message,
+            isOwn: message.senderUserId === userDetails.userId,
+        }));
+    })
+
+    socket.on("channel-created",(channel)=>{
+        dispatch(addChannel({
+            ...channel,
+            isMember: channel.creatorUserId === userDetails.userId || channel.isMember,
+        }));
+    })
+
     socket.on("messages-read",(data)=>{
         dispatch(markMessagesRead(data));
     })
@@ -47,6 +62,10 @@ console.log(socket.id);
 
 export const sendDirectMessage=(data)=>{
     socket?.emit("direct-message",data);
+}
+
+export const sendChannelMessage=(data)=>{
+    socket?.emit("channel-message",data);
 }
 
 export const readMessages=(data)=>{

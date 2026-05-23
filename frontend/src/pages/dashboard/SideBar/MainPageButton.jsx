@@ -3,8 +3,13 @@
  import Button from '@mui/material/Button';
 
  import GroupsIcon from '@mui/icons-material/Groups';
+ import { useSelector } from 'react-redux';
 
 const MainPageButton=()=> {
+  const userDetails=useSelector((state)=>state.auth.userDetails);
+  const username=userDetails?.username || "";
+  const userInitial=username.charAt(0).toUpperCase();
+
   return (
     <>
     <Button
@@ -43,6 +48,7 @@ const MainPageButton=()=> {
 
     }}>
 
+      
       
      {JSON.parse(localStorage.getItem("user")).username}
        

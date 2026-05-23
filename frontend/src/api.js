@@ -130,6 +130,66 @@ return {
     }
 }
 
+export const getChannels=async()=>{
+    try{
+return await apiClient.get("/channel");
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const createChannel=async(data)=>{
+    try{
+return await apiClient.post("/channel",data);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const joinChannel=async(channelId)=>{
+    try{
+return await apiClient.post(`/channel/${channelId}/join`);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const leaveChannel=async(channelId)=>{
+    try{
+return await apiClient.post(`/channel/${channelId}/leave`);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
+export const getChannelMessages=async(channelId)=>{
+    try{
+return await apiClient.get(`/channel/${channelId}/messages`);
+    }catch(error){
+checkResponseCode(error);
+return {
+    error:true,
+    error
+}
+    }
+}
+
 
 const checkResponseCode=(error)=>{
 

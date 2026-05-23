@@ -3,6 +3,7 @@
 import FriendAddButton from './FriendAddButton';
 import FriendsTitle from './FriendsTitle';
 import FriendsList from './FriendsList/FriendsList';
+import ChannelsList from './ChannelsList/ChannelsList';
 import PendingInvitationsList from './PendingInvitationsList/PendingInvitationsList';
 
 
@@ -18,6 +19,8 @@ const FriendsSideBar=()=> {
   return (
     <MainContainer>
      <FriendAddButton/>
+     <FriendsTitle title='CHANNELS'/>
+     <ChannelsList/>
      <FriendsTitle title='PRIVATE MESSAGES'/>
       <FriendsList/>
            <FriendsTitle title='INVITATIONS'/>
